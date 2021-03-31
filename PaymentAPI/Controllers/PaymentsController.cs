@@ -72,7 +72,7 @@ namespace PaymentAPI.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> UpdatePayment(Payments item, int id)
         {
-            _log4net.Info("Update Payment By Resident Was Called !!");
+            _log4net.Info("Update Payment Was Called !!");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
