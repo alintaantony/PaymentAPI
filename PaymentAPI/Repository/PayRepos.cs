@@ -31,6 +31,12 @@ namespace PaymentAPI.Repository
             return item;
         }
 
+        public IEnumerable<Payments> GetPaymentByResidentId(int id)
+        {
+            var item = _context.Payments.Where(t => t.ResidentId == id && t.PaymentStatus == "Requested").ToList();
+            return item;
+        }
+
         public async Task<Payments> PostPayments(Payments item)
         {
             Payments payment = null;
@@ -40,7 +46,7 @@ namespace PaymentAPI.Repository
             }
             else
             {
-                payment = new Payments() { PaymentFor = item.PaymentFor,Amount = item.Amount, ResidentId = item.ResidentId, EmployeeId = item.EmployeeId,PaymentStatus = item.PaymentStatus, ServiceId = item.ServiceId};
+                payment = new Payments() { PaymentFor = item.PaymentFor,Amount = item.Amount, ResidentId = item.ResidentId, EmployeeId = item.EmployeeId,PaymentStatus = "Requested", ServiceId = item.ServiceId};
                 await _context.Payments.AddAsync(payment);
                 await _context.SaveChangesAsync();
             }
