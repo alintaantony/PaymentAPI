@@ -50,6 +50,30 @@ namespace PaymentAPI.Controllers
             }
         }
 
+        [HttpGet("GetPaymentsByRedsidentId/{id}")]
+        public IActionResult GetPaymentsByResidentId(int id)
+        {
+            _log4net.Info("Get Payments By Resident Id Was Called !!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                var payments = _context.GetPaymentByResidentId(id);
+                _log4net.Info("Payments Of Resident Id " + id + " Was Called !!");
+                if (payments == null)
+                {
+                    return NotFound();
+                }
+                return Ok(payments);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostPayments(Payments item)
         {

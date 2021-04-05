@@ -31,6 +31,12 @@ namespace PaymentAPI.Repository
             return item;
         }
 
+        public IEnumerable<Payments> GetPaymentByResidentId(int id)
+        {
+            var item = _context.Payments.Where(t => t.ResidentId == id && t.PaymentStatus == "Requested").ToList();
+            return item;
+        }
+
         public async Task<Payments> PostPayments(Payments item)
         {
             Payments payment = null;
