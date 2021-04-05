@@ -46,7 +46,7 @@ namespace PaymentAPI.Repository
             }
             else
             {
-                payment = new Payments() { PaymentFor = item.PaymentFor,Amount = item.Amount, ResidentId = item.ResidentId, EmployeeId = item.EmployeeId,PaymentStatus = item.PaymentStatus, ServiceId = item.ServiceId};
+                payment = new Payments() { PaymentFor = item.PaymentFor,Amount = item.Amount, ResidentId = item.ResidentId, EmployeeId = item.EmployeeId,PaymentStatus = "Requested", ServiceId = item.ServiceId};
                 await _context.Payments.AddAsync(payment);
                 await _context.SaveChangesAsync();
             }
