@@ -1,4 +1,5 @@
 ﻿using PaymentAPI.Models;
+using PaymentAPI.Models.NewFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace PaymentAPI.Repository
         Payments GetPaymentsbyId(int id);
         Task<Payments> PostPayments(Payments item);
         Task<Payments> UpdatePayment(Payments item, int id);
-        IEnumerable<Payments> GetPaymentByResidentId(int id);
+        IEnumerable<PaymentDetails> GetPaymentByResidentId(int id);
 
     }
 }

@@ -1,4 +1,6 @@
-﻿using PaymentAPI.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PaymentAPI.Models;
+using PaymentAPI.Models.NewFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,10 +33,33 @@ namespace PaymentAPI.Repository
             return item;
         }
 
-        public IEnumerable<Payments> GetPaymentByResidentId(int id)
+        public IEnumerable<PaymentDetails> GetPaymentByResidentId(int id)
         {
-            var item = _context.Payments.Where(t => t.ResidentId == id).ToList();
-            return item;
+            List<Payments> data = _context.Payments.Include(emp => emp.Employee).Include(serv=> serv.Service).ToList();
+
+            List<PaymentDetails> paymentDetailsList = new List<PaymentDetails>();
+            foreach (var ser in data)
+            {
+                if (ser.ResidentId == id)
+                {
+
+                    PaymentDetails temppaymentedetails = new PaymentDetails()
+                    {
+                        PaymentId = ser.PaymentId,
+                        PaymentFor = ser.PaymentFor,
+                         Amount = ser.Amount,
+                        ResidentId = ser.ResidentId,
+                        EmployeeId = ser.EmployeeId,
+                        EmployeeName = ser.Employee.EmployeeName,
+                        PaymentStatus = ser.PaymentStatus,
+                        ServiceId = ser.ServiceId,
+                        ServiceType = ser.Service.ServiceType
+                    };
+                    paymentDetailsList.Add(temppaymentedetails);
+                }
+            }
+            return paymentDetailsList;
+   
         }
 
 
