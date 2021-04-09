@@ -62,7 +62,10 @@ namespace PaymentAPI.Repository
    
         }
 
-
+        public Payments GetPaymentByServiceID(int id)
+        {
+            return _context.Payments.FirstOrDefault(service => service.ServiceId == id);
+        }
 
         public async Task<Payments> PostPayments(Payments item)
         {

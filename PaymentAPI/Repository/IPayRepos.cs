@@ -14,6 +14,7 @@ namespace PaymentAPI.Repository
         Task<Payments> PostPayments(Payments item);
         Task<Payments> UpdatePayment(Payments item, int id);
         IEnumerable<PaymentDetails> GetPaymentByResidentId(int id);
+        Payments GetPaymentByServiceID(int id);
 
     }
 }

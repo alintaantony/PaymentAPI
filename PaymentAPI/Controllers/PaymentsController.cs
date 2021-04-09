@@ -50,6 +50,30 @@ namespace PaymentAPI.Controllers
             }
         }
 
+        [HttpGet("GetPaymentByServiceId/{id}")]
+        public IActionResult GetPaymentByServiceId(int id)
+        {
+            _log4net.Info("Get Payment By Service ID Was Called !!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var payment = _context.GetPaymentByServiceID(id);
+                _log4net.Info("Payment for Service Id " + id + " Was called");
+                if (payment == null)
+                {
+                    return NotFound();
+                }
+                return Ok(payment);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet("GetPaymentsByRedsidentId/{id}")]
         public IActionResult GetPaymentsByResidentId(int id)
         {
